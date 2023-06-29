@@ -13,7 +13,7 @@ from sklearn.preprocessing import StandardScaler #Z-score variables
 from sklearn.model_selection import train_test_split # simple TT split cv
 
 # importing data
-sub_1_1_pan_right_DF = pd.read_csv("/Users/iman/CPSC_Courses/CPSC392ParlettPelleriti/Research/Data/Sub1/Instructional/session_I_PanRight_subjID_1_04-14-23_02-30-22.csv")
+sub_1_1_pan_right_DF = pd.read_csv("../Data/Sub1/Instructional/session_I_PanRight_subjID_1_04-14-23_02-30-22.csv")
 
 sub_1_1_pan_right_DF.drop(sub_1_1_pan_right_DF[(sub_1_1_pan_right_DF['trigger_pull_amount_left'] == 0) & (sub_1_1_pan_right_DF['trigger_pull_amount_right'] == 0)].index, inplace=True)
 
