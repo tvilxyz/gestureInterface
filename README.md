@@ -4,7 +4,7 @@
 - Cleaned Data
 - Data
 - Figures
-- AllData (eacxh of the folders under AllData will have the 37 corresponding csv gesture data)
+- AllData (each of the folders under AllData will have the 37 corresponding csv gesture data)
     - F_BoxSelect
     - F_PanDown
     - F_PanLeft
