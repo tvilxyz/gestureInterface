@@ -1,0 +1,12 @@
+time,x,y,gesture_counter_UI,x_counter,gesture_counter
+1,A,A,1,0,1
+2,B,B,1,0,1
+3,C,B,1,0,1
+8,H,B,1,1,2
+9,I,B,1,1,2
+10,J,A,2,1,3
+11,K,A,2,1,3
+12,L,B,2,1,3
+13,M,B,2,1,3
+19,S,B,2,2,4
+20,T,A,3,2,5
