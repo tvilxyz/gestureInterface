@@ -40,3 +40,4 @@
     - Rows and columns are setermined by the sqrt of the number of participants.
     - We iterate over the grouped data by participant and session, and then iterate over each trial for each participant and session (which is denoted by gesture_counter) and add scatter traces
     - After looping through all 37 sessions, we save the figure in the given output file, which you can change using the "output_path"
+
