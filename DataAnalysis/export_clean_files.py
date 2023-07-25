@@ -8,7 +8,7 @@ sessions. The SessionFolder will contain files with all of the gesture data for 
 have the format of ..\VRelax\gestureInterface\Data\Sub#\SessionFolder\GestureDataFile where Sub# will be replaced with the 
 subject's number. SessionFolder and GestureDataFile can be any name but GestureDataFile must be a .csv
 
-The program requires os.path to be downloaded into the environment and utilizes the clean_file.py file. 
+The program requires os.path to be downloaded into the environment and utilizes the get_updated_file() method in the clean_file.py file. 
 """
 
 # import necessary packages
@@ -20,30 +20,30 @@ from clean_file import *
 
 
 # Relative paths to the Data and CleanedData folders
-dataFolderPath = "..\\VRelax\\gestureInterface\\Data"
-cleanDataFolderPath = "..\\VRelax\\gestureInterface\\CleanedData"
+data_folder_path = "..\\VRelax\\gestureInterface\\Data"
+clean_data_folder_path = "..\\VRelax\\gestureInterface\\CleanedData"
 
 # List of paths to all of the subjectNumber folders - Sub1/Sub2/Sub3/etc
-subjectNumberFolders = [f.path for f in os.scandir(dataFolderPath) if f.is_dir()] 
+subject_number_folders = [f.path for f in os.scandir(data_folder_path) if f.is_dir()] 
 
-for subjectNumber in range(len(subjectNumberFolders)):
+for subject_number in range(len(subject_number_folders)):
     # Checks for an existing subNum folder for each subject in the CleanData directory and creates one if there isn't one
-    subjectNumberInCleanDataFolderPath = cleanDataFolderPath + "\\Sub" + str(subjectNumber+1)
-    currSubNumPath = dataFolderPath + "\\Sub" + str(subjectNumber+1)
-    if not os.path.exists(subjectNumberInCleanDataFolderPath):
-        os.makedirs(subjectNumberInCleanDataFolderPath)
+    subject_number_in_clean_data_folder_path = clean_data_folder_path + "\\Sub" + str(subject_number+1)
+    curr_sub_num_path = data_folder_path + "\\Sub" + str(subject_number+1)
+    if not os.path.exists(subject_number_in_clean_data_folder_path):
+        os.makedirs(subject_number_in_clean_data_folder_path)
 
     # List of paths for all of the session folders for the single subNum folder
-    currentSubjectNumberFolder = [f.path for f in os.scandir(currSubNumPath) if f.is_dir()]       
+    curr_subject_number_folder = [f.path for f in os.scandir(curr_sub_num_path) if f.is_dir()]       
 
     # Iterates through the session folders in that subNum folder
-    for sessionNumber in range(len(currentSubjectNumberFolder)):                      
+    for sessionNumber in range(len(curr_subject_number_folder)):                      
         
         # Gets the current session folder path
-        currentSessionFolderPath = currentSubjectNumberFolder[sessionNumber]  
+        currentSessionFolderPath = curr_subject_number_folder[sessionNumber]  
 
         # Checks for an existing session folder in the CleanedData\SubNum path and creates one if there isn't
-        sessionNumberInCleanDataFolderPath = subjectNumberInCleanDataFolderPath + "\\" + os.path.basename(currentSessionFolderPath)
+        sessionNumberInCleanDataFolderPath = subject_number_in_clean_data_folder_path + "\\" + os.path.basename(currentSessionFolderPath)
         if not os.path.exists(sessionNumberInCleanDataFolderPath):
             os.makedirs(sessionNumberInCleanDataFolderPath)
 
@@ -51,5 +51,5 @@ for subjectNumber in range(len(subjectNumberFolders)):
         for fileNum in range(len(os.listdir(currentSessionFolderPath))):
             currentGestureFileName = (os.listdir(currentSessionFolderPath)[fileNum])
             currentGestureFilePath = currentSessionFolderPath + "\\" + currentGestureFileName
-            GetUpdatedFile(currentGestureFilePath, sessionNumberInCleanDataFolderPath)
+            get_updated_file(currentGestureFilePath, sessionNumberInCleanDataFolderPath)
     
