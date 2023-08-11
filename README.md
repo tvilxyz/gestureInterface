@@ -59,7 +59,7 @@
 - export_clean_files.py
     - Overview: This script cleans data files using the clean_file.py and exports the new csv files to a CleanedData folder.
     - The file will iterate through the data folder, clean, and export each individual csv data files to its new path. The CleanData folder will have a similar tree as the Data folder. However, the file name will have a 'cleaned_' added prior its original file name as its new name.
-    - Utilizes get_updated_file(file_path, folder_path) method from clean_file.py where filePath is the path to the csv data file and folderPath is the path to the folder that the new cleaned file should be exported to.
+    - Utilizes get_updated_file(file_path, folder_path) method from clean_file.py where file_path is the path to the csv data file and folder_path is the path to the folder that the new cleaned file should be exported to.
     - You will need need to modify the data_folder_path and clean_data_folder_path. clean_data_folder_path must have a folder called CleanedData but can be empty. data_folder_path is expected to have subfolders and csv files as specified in the file documentation.
 - gesture_box_plot.ipynb
     - Overview: This script outputs csv files that contains data points to create box plots.
