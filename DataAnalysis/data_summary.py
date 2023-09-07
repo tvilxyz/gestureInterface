@@ -210,6 +210,6 @@ The export_folder_path variable can be any folder path the user would like the s
 be a folder that contains the data files from the metric calculations created in the gesture_box_plot.ipynb.
 """
 
-input_folder_path = 'C:\\Users\\vrelax\\Desktop\\VRelax\\gestureInterface\\BoxPlots\\GestureAngle'
-export_folder_path = 'C:\\Users\\vrelax\\Desktop\\VRelax\\gestureInterface\\BoxPlots\\MetricSummary'
+input_folder_path = '..\\GestureLength'
+export_folder_path = '..\\MetricSummary'
 summarize_data(export_folder_path, input_folder_path)
