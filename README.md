@@ -16,6 +16,31 @@
             - Can only use the files that have been exported by this script.
 - metric_calculations.ipynb
     - Overview: Performs metric calculations for specified features of the participants' gesture data. It then outputs the measurement value calculated for each trial and exports it as csv file. For each gesture, there will be two files for freeform and instructional. It will be used to generate box plots.
+        - Length: 
+            - Determine the distance between every two adjacent points based on position
+            - Sum of all the lengths calculated
+        - Duration: 
+            - The time at which the trigger was released subtracted by the time at which the trigger was pulled
+        - Speed: 
+            - Length divided by time
+        - Acceleration: 
+            - Speed / time
+        - Angle: 
+            - Smooth the curve of the stroke using B-spline
+            - Determine 50 points on the curve
+            - Measure the external angle between two vectors made from every overlapping set of three consecutive points on the curve 
+                - The dot product of two normalized vectors 'ab' and 'bc'
+                - Convert result from radians to degrees
+            - Take the average all those calculations
+        - Curvature: 
+            - Smooth the curve of the stroke using B-spline
+            - Determine 51 points on the curve 
+            - Measure the curvature between every overlapping set of three consecutive points on the curve 
+                - Find the triangle area created by the three data points 
+                    - Cross product of vectors 'ab' and 'bc' and calculate the norm from the result
+                    - Multiply it by .5
+                - Use the menger curvature formula to calculate the curvature
+                    - (4 * area) / (length/distance of each triangle side)
     - Script prerequisites:
         - export_clean_files.py
             - Can only use the files that have been exported by this script.
