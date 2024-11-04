@@ -1,14 +1,17 @@
 """
+Overview
+------
 This script utilizes a Data and CleanedData directory. It will iterate through a data directory, cleaning the data files within
 the create, while creating subfolders within the clean data directory and exporting those clean files to their respective paths.
 
-It assumes that there are two existing directories, a Data and CleanedData directory. Within the Data directory, there will 
-be two subFolders, Sub# and SessionFolder sequentially, which represents the subject's identification number and all of their
-sessions. The SessionFolder will contain files with all of the gesture data for that specific session. A sample path will 
-have the format of ..\VRelax\gestureInterface\Data\Sub#\SessionFolder\GestureDataFile where Sub# will be replaced with the 
-subject's number. SessionFolder and GestureDataFile can be any name but GestureDataFile must be a .csv
+Key Variables
+-------
+    * data_folder_path (str): path to input data. Must have the format of ..\Data\Sub#\SessionFolder\GestureDataFile
+    * clean_data_folder_path (str): empty folder to output clean data to. Folder must be called ..\CleanedData
 
-The program requires os.path to be downloaded into the environment and utilizes the get_updated_file() method in the clean_file.py file. 
+Requirements
+------- 
+Update variables data_folder_path and clean_data_folder_path to local folder paths
 """
 
 # import necessary packages

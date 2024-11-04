@@ -1,12 +1,11 @@
 """
+Overview
+------- 
 This script takes in a file containing gesture data and cleans it up by removing trials that have been striked out. 
 The user should only utilize the UpdateFile() as the other ones are used as helpers for that method.
 
-It requires pandas, os, and math to be installed in the environment.
-
-This tool accepts .csv files and assumes that the file will have an x_counter and gesture_counter_UI column for analytics.
-
-This script contains the following methods:
+Key Functions
+------- 
     * clean_file - Removes trials that have been striked and returns a cleaned dataframe.
     * get_num_strikes - Gets the total number of strikes, or max x_counter, found in the file.
     * read_file - Converts a csv file into a dataframe.

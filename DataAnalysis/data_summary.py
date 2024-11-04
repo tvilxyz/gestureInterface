@@ -1,22 +1,21 @@
 """
+Overview
+------- 
 This script takes in a boxplot data file, summarizes the data, and exports two summary csv files for freeform and instructional. 
 The summary contains the name, minimum, maximum, mean, median, std, sum, and difference between the min and max for each gesture.
 
-The user should not modify any of the methods, but the two variables at the bottom of the program named input_folder_path and export_folder_path 
-should be changed to path of the folders on the user's computer. 
-
-The export_folder_path variable can be any folder path the user would like the summary to be exported to, and the input_folder_path must be a directory 
-that contains the box plot data files which has been successfully ran and created with the gesture_box_plot.ipynb file.
-
-It requires pandas, os, and numpy to be installed in the environment.
-
-This script contains the following methods:
+Key Functions
+------- 
     * create_columns - Adds descriptive static columns into an empty dataframe.
     * add_to_df - Gets the summary from the data df and adds it as a row to the total summarized dataframe.
     * add_sum_to_df - Creates columns for the sum of the left and right controller for min, max, and mean.
     * get_export_path - Gets the export path for the new summary file.
     * read_file - Converts a csv file into a dataframe.
     * summarize_data - Reads the original data file, summarizes it in a new csv, and exports it to a specified location.
+
+Requirements
+------- 
+- Update variables input_folder_path and export_folder_path to the local path of folder where the box plot data files resides and the folder to output to.
 """
 
 import os

@@ -1,6 +1,4 @@
 """
-Script Documentation
-
 Overview
 ---------
 This script is designed to generate box plots for gesture metrics from CSV files. Each CSV file corresponds to a gesture and contains data for left and right hand movements. The script exports these visualizations as HTML files, with each gesture type generating its own box plot.
@@ -12,10 +10,9 @@ Key Variables
 - input_folder (str): Path to the folder containing the input CSV files with gesture data.
 - output_folder (str): Path to the folder where generated box plot HTML files are saved.
 
-To Do:
+Requirements:
 ------
 - Edit the key variables
-
 """
 
 
@@ -40,11 +37,15 @@ def get_gesture_name(file_name):
     """
     Gets gesture name from file name.
 
-    Args:
-        file_name (str): name of file that was produced from the metric calculations. Has the format metric_for_gesture.csv
+    Parameters
+    -----
+        file_name : str
+            name of file that was produced from the metric calculations. Has the format metric_for_gesture.csv
     
-    Returns:
-        name_parts (list): list of words that make up the file name
+    Returns
+    -----
+        name_parts : list
+            list of words that make up the file name
     """
     name_parts = file_name.split('_')
     return name_parts[2:]
@@ -55,8 +56,10 @@ def adjust_yaxis_to_whiskers(fig):
     """
     Autoscales each file to the min and max y based on boxplot traces.
 
-    Args:
-        fig (go.Figure): figure containing boxplot traces
+    Parameters
+    -----
+        fig : go.Figure
+            figure containing boxplot traces
     """
 
     whisker_max = float('-inf')
@@ -79,9 +82,12 @@ def export_boxplots(fig, gesture):
     """
     Exports boxplot traces to an html file.
 
-    Args:
-        fig (go.Figure): Figure containing boxplot traces
-        gesture (str): Name of the gesture being exported (Pan, Rot, or Zoom)
+    Parameters
+    -----
+        fig : go.Figure
+            Figure containing boxplot traces
+        gesture : str
+            Name of the gesture being exported (Pan, Rot, or Zoom)
     """
 
     # Removes data points
