@@ -10,7 +10,7 @@ Key Variables
 - input_folder (str): Path to the folder containing the input CSV files with gesture data.
 - output_folder (str): Path to the folder where generated box plot HTML files are saved.
 
-Requirements:
+Requirements
 ------
 - Edit the key variables
 """
@@ -27,8 +27,8 @@ import numpy as np
 '''Edit variables here'''
 metric_name = "Duration"
 unit_of_measurement = "Seconds"
-input_folder = "..\\VRelax\\gestureInterface\\MetricCalculations\\GestureDuration"
-output_folder = "..\\VRelax\\gestureInterface\\Figures\\BoxPlots"
+input_folder = "..\\gestureInterface\\MetricCalculations\\GestureDuration"
+output_folder = "..\\gestureInterface\\Figures\\BoxPlots"
 
 
 
@@ -149,12 +149,17 @@ def generate_box_plots():
 
         # Convert columns into lists for left and right gestures
         left_list = df.iloc[:, 0].tolist()
-        right_list = df.iloc[:, 1].tolist()
+        if metric_name != "Duration":
+            right_list = df.iloc[:, 1].tolist()
 
         # Add traces for left and right hand
         gesture_label = ' '.join(gesture_name[:-1]).title()
-        fig.add_trace(go.Box(y=left_list, name=f"{gesture_label} (L)", marker_color=colors[color_index % len(colors)]))
-        fig.add_trace(go.Box(y=right_list, name=f"{gesture_label} (R)", marker_color=colors[color_index % len(colors)]))
+        if metric_name == "Duration":
+            fig.add_trace(go.Box(y=left_list, name=f"{gesture_label}", marker_color=colors[color_index % len(colors)]))
+        else:
+            fig.add_trace(go.Box(y=left_list, name=f"{gesture_label} (L)", marker_color=colors[color_index % len(colors)]))
+            fig.add_trace(go.Box(y=right_list, name=f"{gesture_label} (R)", marker_color=colors[color_index % len(colors)]))
+            
         color_index += 1
 
     # Final plot export after loop finishes
