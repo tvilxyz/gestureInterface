@@ -120,7 +120,8 @@ def generate_box_plots():
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
     color_index = 0
 
-    for file in os.listdir(input_folder):
+    files = sorted(os.listdir(input_folder))
+    for file in files:
         df = pd.read_csv(os.path.join(input_folder, file)) 
         gesture_name = get_gesture_name(file)
 
