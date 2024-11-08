@@ -117,7 +117,6 @@
 
 - **Dependencies**:
     - Requires a data directory as input. Data directory must be a folder called "Codebook" and contain codebook csvs for each gesture.
-    - Requires an output folder called "CodebookAnalysis" to output file to.
 
 - **Connections**: 
     - N/A
