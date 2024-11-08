@@ -145,10 +145,11 @@ def get_export_path(sessiontype, output_folder_path, input_folder_path):
         the summarized data file's path
     """
 
-    folder_path_split = input_folder_path.split('\\')
+    folder_path_split = os.path.split(input_folder_path)
     metric_name = folder_path_split[-1][7:].lower()
 
-    new_export_path = output_folder_path + '\\' + metric_name + '_' + sessiontype + '_summary.csv'
+    new_export_path = os.path.join(output_folder_path, f"{metric_name}_{sessiontype}_summary.csv")
+
     return new_export_path
 
 
@@ -166,6 +167,7 @@ def summarize_data(output_folder_path, input_folder_path):
 
     # Get all data files in the input directory
     gesture_files_list = os.listdir(input_folder_path)
+    gesture_files_list = sorted(gesture_files_list)
 
     # Create summary df template with columns for both freeform and instructional
     freeform_summary_df = pd.DataFrame()
