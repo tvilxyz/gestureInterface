@@ -5,14 +5,15 @@ This script is designed to generate box plots for gesture metrics from CSV files
 
 Key Variables
 -------------
-- metric_name (str): The name of the metric being visualized (e.g., "Duration").
-- unit_of_measurement (str): The unit of the metric (e.g., "Seconds").
-- input_folder (str): Path to the folder containing the input CSV files with gesture data.
-- output_folder (str): Path to the folder where generated box plot HTML files are saved.
+    * metric_name (str): The name of the metric being visualized (e.g., "Duration").
+    * unit_of_measurement (str): The unit of the metric (e.g., "Seconds").
+    * input_folder (str): Path to the folder containing the input CSV files with gesture data.
+    * output_folder (str): Path to the folder where generated box plot HTML files are saved.
 
 Requirements
 ------
-- Edit the key variables
+    * Edit the key variables
+    * Repeat 6 times for the 6 different metrics, changing the metric_name, unit_of_measurement, and input_folder each time.
 """
 
 

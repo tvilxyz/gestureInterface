@@ -132,7 +132,7 @@ def get_file_export_path(file_name, folder_path):
     """
 
     new_file_name = "cleaned_" + file_name
-    gesture_file_path = folder_path + "\\" + new_file_name
+    gesture_file_path = os.path.join(folder_path, new_file_name)
     return gesture_file_path
 
 def export_to_csv(df, file_name, folder_path):
@@ -166,12 +166,14 @@ def get_updated_file(file_path, folder_path):
         path to the export location of the clean csv file
     """
 
-    ogFile = read_file(file_path)
+    og_file = read_file(file_path)
     file_name = os.path.basename(file_path)
     gestureFilePath = get_file_export_path(file_name, folder_path)
+    
     if not os.path.exists(gestureFilePath):
-        if get_num_strikes(ogFile) > 0:
-            cleanedFile = clean_file(ogFile)
+        # If file contains strikes, clean it before exporting
+        if get_num_strikes(og_file) > 0:
+            cleanedFile = clean_file(og_file)
             export_to_csv(cleanedFile, file_name, folder_path)
         else:
-            export_to_csv(ogFile, file_name, folder_path)
+            export_to_csv(og_file, file_name, folder_path)

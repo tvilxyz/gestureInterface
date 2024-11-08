@@ -1,7 +1,7 @@
 """
 Overview
 ------- 
-This script takes in a boxplot data file, summarizes the data, and exports two summary csv files for freeform and instructional. 
+This script takes in a metric calculation data file, summarizes the data, and exports two summary csv files for freeform and instructional. 
 The summary contains the name, minimum, maximum, mean, median, std, sum, and difference between the min and max for each gesture.
 
 Key Functions
@@ -15,7 +15,8 @@ Key Functions
 
 Requirements
 ------- 
-- Update variables input_folder_path and export_folder_path to the local path of folder where the box plot data files resides and the folder to output to.
+    * Edit variables: input_folder_path, export_folder_path
+    * Run 6 times for the 6 different metrics, changing the input_folder_path variable each time.
 """
 
 import os
@@ -73,11 +74,6 @@ def add_to_df(data_df, summary_df):
     summary_df : dataframe
         data frame that will contain all the gesture summaries
     """
-
-    row_num = 1
-    sum_min = 0
-    sum_max = 0
-    sum_mean = 0
 
     for gesture in data_df:
         gesture_name = gesture
@@ -202,13 +198,11 @@ def summarize_data(output_folder_path, input_folder_path):
         
 
     
-"""
-Modify the two variables below to the path of the file and folder on the computer.
 
-The export_folder_path variable can be any folder path the user would like the summary to be exported to, and the import_folder_path which must 
-be a folder that contains the data files from the metric calculations created in the gesture_box_plot.ipynb.
-"""
+# Folder containing data from a single gestire in metric calculations. Must run 6 times for the 6 different metrics with the new paths.
+input_folder_path = '..\\gestureInterface\\MetricCalculations\\GestureAcceleration'
 
-input_folder_path = '..\\VRelax\\gestureInterface\\MetricCalculations\\GestureAcceleration'
-export_folder_path = '..\\VRelax\\gestureInterface\\MetricCalculations\\MetricSummary'
+# Folder where files will be outputted to
+export_folder_path = '..\\gestureInterface\\MetricCalculations\\MetricSummary'
+
 summarize_data(export_folder_path, input_folder_path)

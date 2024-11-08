@@ -11,7 +11,7 @@ Key Variables
 
 Requirements
 ------- 
-Update variables data_folder_path and clean_data_folder_path to local folder paths
+    * Edit variables: data_folder_path, clean_data_folder_path
 """
 
 # import necessary packages
@@ -31,8 +31,8 @@ subject_number_folders = [f.path for f in os.scandir(data_folder_path) if f.is_d
 
 for subject_number in range(len(subject_number_folders)):
     # Checks for an existing subNum folder for each subject in the CleanData directory and creates one if there isn't one
-    subject_number_in_clean_data_folder_path = clean_data_folder_path + "\\Sub" + str(subject_number+1)
-    curr_sub_num_path = data_folder_path + "\\Sub" + str(subject_number+1)
+    subject_number_in_clean_data_folder_path = os.path.join(clean_data_folder_path, "Sub" + str(subject_number + 1))
+    curr_sub_num_path = os.path.join(data_folder_path, "Sub" + str(subject_number + 1))
     if not os.path.exists(subject_number_in_clean_data_folder_path):
         os.makedirs(subject_number_in_clean_data_folder_path)
 
@@ -46,13 +46,13 @@ for subject_number in range(len(subject_number_folders)):
         currentSessionFolderPath = curr_subject_number_folder[sessionNumber]  
 
         # Checks for an existing session folder in the CleanedData\SubNum path and creates one if there isn't
-        sessionNumberInCleanDataFolderPath = subject_number_in_clean_data_folder_path + "\\" + os.path.basename(currentSessionFolderPath)
+        sessionNumberInCleanDataFolderPath = os.path.join(subject_number_in_clean_data_folder_path, os.path.basename(currentSessionFolderPath))
         if not os.path.exists(sessionNumberInCleanDataFolderPath):
             os.makedirs(sessionNumberInCleanDataFolderPath)
 
         #iterates through all of the files in the session folder
         for fileNum in range(len(os.listdir(currentSessionFolderPath))):
-            currentGestureFileName = (os.listdir(currentSessionFolderPath)[fileNum])
-            currentGestureFilePath = currentSessionFolderPath + "\\" + currentGestureFileName
+            current_gesture_file_name = (os.listdir(currentSessionFolderPath)[fileNum])
+            currentGestureFilePath = os.path.join(currentSessionFolderPath, current_gesture_file_name)
             get_updated_file(currentGestureFilePath, sessionNumberInCleanDataFolderPath)
     
