@@ -28,8 +28,10 @@ import numpy as np
 '''Edit variables here'''
 metric_name = "Duration"
 unit_of_measurement = "Seconds"
-input_folder = "..\\gestureInterface\\MetricCalculations\\GestureDuration"
-output_folder = "..\\gestureInterface\\Figures\\BoxPlots"
+#input_folder = "..\\gestureInterface\\MetricCalculations\\GestureDuration"
+input_folder = os.path.join('..', 'gestureInterface', 'MetricCalculations', 'GestureDuration')
+#output_folder = "..\\gestureInterface\\Figures\\BoxPlots"
+output_folder = os.path.join('..', 'gestureInterface', 'Figures', 'BoxPlots')
 
 
 
