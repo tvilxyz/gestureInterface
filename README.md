@@ -6,6 +6,14 @@
 2) Getting Started
 3) File Descriptions & Dependencies
 
+## Getting Started
+To install required packages to run this project:
+- Open your terminal (for MacOs or Linux) or Anaconda prompt (for Windows)
+- Navigate to the directory containing the file 'environment.yml'
+- Run the following command to create the environment:
+    `conda env create -f environment.yml`
+- Activate the environment with:
+    `conda activate gestureInterface_Py3.9`
 
 ## File Descriptions & Dependencies
 

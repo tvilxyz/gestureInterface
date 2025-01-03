@@ -1,0 +1,20 @@
+name: gestureInterface_Py3.9
+channels:
+  - plotly
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pandas
+  - pyarrow
+  - ipykernel
+  - plotnine
+  - nbformat
+  - plotly
+  - plotly_express
+  - matplotlib
+  - notebook
+  - scipy
+  - pip
+  - pip:
+      - scikit-learn
