@@ -12,8 +12,8 @@ Key Variables
 
 Requirements
 ------
-    * Edit the key variables
-    * Repeat 6 times for the 6 different metrics, changing the metric_name, unit_of_measurement, and input_folder each time.
+    * Edit metric_name variable.
+    * Repeat 7 times for the 7 different metrics.
 """
 
 
@@ -25,14 +25,19 @@ import numpy as np
 
 
 
-'''Edit variables here'''
-metric_name = "Duration"
-unit_of_measurement = "Seconds"
-input_folder = "..\\gestureInterface\\MetricCalculations\\GestureDuration"
-output_folder = "..\\gestureInterface\\Figures\\BoxPlots"
+'''Edit variable here. Only use the keys in unit_of_measurement dictionary.'''
+metric_name = "Curvature"
 
+unit_of_measurement = {'Duration': 'Seconds',
+                       'Length': 'Meters',
+                       'Speed': 'Meters/Second',
+                       'Velocity': 'Meters/Second',
+                       'Acceleration': 'Meters/Second^2',
+                       'Angle': 'Degrees',
+                       'Curvature': '1/Radius'}
 
-
+input_folder = os.path.join('..', 'MetricCalculations', 'Gesture' + metric_name)
+output_folder = os.path.join('..', 'Figures', 'BoxPlots')
 
 def get_gesture_name(file_name):
     """
@@ -114,7 +119,7 @@ def generate_box_plots():
     fig.update_layout(
         title=f"{metric_name}: {curr_gesture}",
         xaxis_title="Gestures (w/ Hand)",
-        yaxis_title=unit_of_measurement,
+        yaxis_title=unit_of_measurement[metric_name],
     )
 
     # Colors for boxplot traces
@@ -142,7 +147,7 @@ def generate_box_plots():
             fig.update_layout(
                 title=f"{metric_name}: {curr_gesture}",
                 xaxis_title="Gestures (w/ Hand)",
-                yaxis_title=unit_of_measurement,
+                yaxis_title=unit_of_measurement[metric_name],
                 yaxis=dict(range=[None, None])
             )
 

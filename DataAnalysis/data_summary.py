@@ -15,8 +15,8 @@ Key Functions
 
 Requirements
 ------- 
-    * Edit variables: input_folder_path, export_folder_path
-    * Run 6 times for the 6 different metrics, changing the input_folder_path variable each time.
+    * Edit variables: gesture
+    * Run 6 times for the 6 different metrics, changing the gesture variable each time.
 """
 
 import os
@@ -58,9 +58,6 @@ def create_columns(df):
     df['std'] = np.nan
     df['sum'] = np.nan
     df['difference'] = np.nan
-    #df['L/R_sum_of_min'] = np.nan
-    #df['L/R_sum_of_max'] = np.nan
-    #df['L/R_sum_of_mean'] = np.nan
 
 
 def add_to_df(data_df, summary_df):
@@ -88,6 +85,50 @@ def add_to_df(data_df, summary_df):
         summary_df.loc[gesture_name] = [gesture_name, gesture_min, gesture_max, gesture_mean, gesture_median, gesture_std, gesture_sum, gesture_diff]
 
 
+def add_to_df2(data_df, summary_df):
+    for gesture in data_df:
+        gesture_name = gesture
+
+        # Must convert variable type. Floats are np.nan and tuples are string. 
+        converted_vals = []
+        for t in data_df[gesture]:
+            if isinstance(t, str) == True:
+                t = tuple(map(float, t.strip("()").split(",")))
+            else:
+                t = np.nan
+            converted_vals.append(t)
+
+        # Update the DataFrame column with the cleaned/converted values
+        data_df[gesture] = converted_vals
+
+        # Extract x, y, and z values from the tuples
+        x_vals = [t[0] for t in data_df[gesture] if isinstance(t, tuple)]
+        y_vals = [t[1] for t in data_df[gesture] if isinstance(t, tuple)]
+        z_vals = [t[2] for t in data_df[gesture] if isinstance(t, tuple)]
+
+        gesture_min = (min(x_vals), min(y_vals), min(z_vals))
+        gesture_max = (max(x_vals), max(y_vals), max(z_vals))
+        gesture_mean = (sum(x_vals) / len(x_vals), sum(y_vals) / len(y_vals), sum(z_vals) / len(z_vals))
+        gesture_median = (
+            sorted(x_vals)[len(x_vals) // 2],
+            sorted(y_vals)[len(y_vals) // 2],
+            sorted(z_vals)[len(z_vals) // 2]
+        )
+        gesture_std = (
+            (sum((x - gesture_mean[0])**2 for x in x_vals) / len(x_vals))**0.5,
+            (sum((y - gesture_mean[1])**2 for y in y_vals) / len(y_vals))**0.5,
+            (sum((z - gesture_mean[2])**2 for z in z_vals) / len(z_vals))**0.5
+        )
+        gesture_sum = (sum(x_vals), sum(y_vals), sum(z_vals))
+        gesture_diff = (
+            gesture_max[0] - gesture_min[0],
+            gesture_max[1] - gesture_min[1],
+            gesture_max[2] - gesture_min[2]
+        )
+
+        summary_df.loc[gesture_name] = [gesture_name, gesture_min, gesture_max, gesture_mean, gesture_median, gesture_std, gesture_sum, gesture_diff]
+        
+
 def add_sum_to_df(summary_df):
     """
     Adds three new columns to the summary dataframe: sum of both hand controllers for .the min, max, and mean
@@ -98,13 +139,9 @@ def add_sum_to_df(summary_df):
         data frame that will contain all the gesture summaries
     """
 
-    sum_min = 0
-    sum_max = 0
-    sum_mean = 0
+    sum_min, sum_max, sum_mean = 0, 0, 0
 
-    min_list = []
-    max_list = []
-    mean_list = []
+    min_list, max_list, mean_list = [], [], []
 
     for row_num in range(len(summary_df)):
         # If row is for left controller, the sum_min, sum_max, sum_mean will be replaced with the right controller data
@@ -112,6 +149,7 @@ def add_sum_to_df(summary_df):
             sum_min = summary_df.iloc[row_num]['min']
             sum_max = summary_df.iloc[row_num]['max']
             sum_mean = summary_df.iloc[row_num]['mean']
+        # Row is for right controller
         else:
             sum_min += summary_df.iloc[row_num]['min']
             sum_max += summary_df.iloc[row_num]['max']
@@ -126,6 +164,48 @@ def add_sum_to_df(summary_df):
     summary_df.loc[:, ['L/R_sum_of_min']] = min_list
     summary_df.loc[:, ['L/R_sum_of_max']] = max_list
     summary_df.loc[:, ['L/R_sum_of_mean']] = mean_list
+
+
+def add_sum_to_df2(summary_df):
+    """
+    Adds three new columns to the summary dataframe: sum of both hand controllers for .the min, max, and mean
+
+    Parameters
+    -----
+    summary_df : dataframe
+        data frame that will contain all the gesture summaries
+    """
+
+    sum_min, sum_max, sum_mean = (0,0,0), (0,0,0), (0,0,0)
+
+    min_list, max_list, mean_list = [], [], []
+
+    for row_num in range(len(summary_df)):
+        # If row is for left controller, the sum_min, sum_max, sum_mean will be replaced with the right controller data
+        if row_num % 2 == 0:
+            sum_min = summary_df.iloc[row_num]['min']
+            sum_max = summary_df.iloc[row_num]['max']
+            sum_mean = summary_df.iloc[row_num]['mean']
+        else:
+            sum_min = (sum_min[0] + summary_df.iloc[row_num]['min'][0], 
+                       sum_min[1] + summary_df.iloc[row_num]['min'][1],
+                       sum_min[2] + summary_df.iloc[row_num]['min'][2])
+            sum_max = (sum_max[0] + summary_df.iloc[row_num]['max'][0], 
+                       sum_max[1] + summary_df.iloc[row_num]['max'][1],
+                       sum_max[2] + summary_df.iloc[row_num]['max'][2])
+            sum_mean = (sum_mean[0] + summary_df.iloc[row_num]['mean'][0], 
+                       sum_mean[1] + summary_df.iloc[row_num]['mean'][1],
+                       sum_mean[2] + summary_df.iloc[row_num]['mean'][2])
+            min_list.append(sum_min)
+            max_list.append(sum_max)
+            mean_list.append(sum_mean)
+            min_list.append(sum_min)
+            max_list.append(sum_max)
+            mean_list.append(sum_mean)
+
+    summary_df.loc[:, 'L/R_sum_of_min'] = min_list
+    summary_df.loc[:, 'L/R_sum_of_max'] = max_list
+    summary_df.loc[:, 'L/R_sum_of_mean'] = mean_list
 
 
 def get_export_path(sessiontype, output_folder_path, input_folder_path):
@@ -179,12 +259,23 @@ def summarize_data(output_folder_path, input_folder_path):
     for file_num in range(len(gesture_files_list)):
         data_df = read_file(os.path.join(input_folder_path, gesture_files_list[file_num]))
         if (file_num%2 == 0):
-            add_to_df(data_df, freeform_summary_df)
+            if (gesture == "GestureVelocity") or (gesture == "GestureAcceleration"):
+                add_to_df2(data_df, freeform_summary_df)
+            else:
+                add_to_df(data_df, freeform_summary_df)
         else:
-            add_to_df(data_df, instructional_summary_df)
+            if (gesture == "GestureVelocity") or (gesture == "GestureAcceleration"):
+                add_to_df2(data_df, instructional_summary_df)
+            else:
+                add_to_df(data_df, instructional_summary_df)
     
-    add_sum_to_df(freeform_summary_df)
-    add_sum_to_df(instructional_summary_df)
+
+    if (gesture == "GestureVelocity") or (gesture == "GestureAcceleration"):
+        add_sum_to_df2(freeform_summary_df)
+        add_sum_to_df2(instructional_summary_df)
+    else:
+        add_sum_to_df(freeform_summary_df)
+        add_sum_to_df(instructional_summary_df)
 
     # Exports new summary files to a specified folder
     freeform_export_path = get_export_path('freeform', output_folder_path, input_folder_path)
@@ -198,13 +289,14 @@ def summarize_data(output_folder_path, input_folder_path):
     
 
         
-
-    
+'''Edit variable here'''
+# Folder name for metric data
+gesture = "GestureVelocity"
 
 # Folder containing data from a single gestire in metric calculations. Must run 6 times for the 6 different metrics with the new paths.
-input_folder_path = '..\\gestureInterface\\MetricCalculations\\GestureAcceleration'
+input_folder_path = os.path.join('..', 'MetricCalculations', gesture)
 
 # Folder where files will be outputted to
-export_folder_path = '..\\gestureInterface\\MetricCalculations\\MetricSummary'
+export_folder_path = os.path.join('..', 'MetricCalculations', "MetricSummary")
 
 summarize_data(export_folder_path, input_folder_path)
