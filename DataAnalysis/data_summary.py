@@ -291,7 +291,7 @@ def summarize_data(output_folder_path, input_folder_path):
         
 '''Edit variable here'''
 # Folder name for metric data
-gesture = "GestureVelocity"
+gesture = "GestureAcceleration"
 
 # Folder containing data from a single gestire in metric calculations. Must run 6 times for the 6 different metrics with the new paths.
 input_folder_path = os.path.join('..', 'MetricCalculations', gesture)

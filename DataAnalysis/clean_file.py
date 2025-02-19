@@ -22,7 +22,7 @@ import pandas as pd
 
 
 
-def clean_file(file):
+def clean_file(og_df):
     """
     Removes all of the gestures that have been striked out.
     An increase in the x_counter column, meaning the x button was pressed, removes the most recent trial.
@@ -41,40 +41,26 @@ def clean_file(file):
         a new dataframe that represents the cleaned version of the original csv file
     """
 
-    newDF = pd.DataFrame(data=None, columns = file.columns, index=file.index)
-    newDF = newDF[0:0]
-    testDF = file.copy()
-    ui_counter = -1
-    
-    while (testDF.empty == False):
-        #Gets the gesture_counter_UI of the first row in testDF
-        gui_group_num = (testDF.iloc[0]["gesture_counter_UI"]).astype(int)                
-        ui_counter += 1                                                  
-        if (gui_group_num == ui_counter):              
-            # Iterates through testDF and adds row from testDf to newDF and removes that row from testDF
-            # until a new gesture has been recorded or a strike occurs                    
-            for i in range(len(testDF.index)):
-                if testDF.iloc[0]["gesture_counter_UI"] == ui_counter:                 
-                    row = testDF.iloc[0].copy()
-                    newDF.loc[len(newDF.index)] = row
-                    testDF = testDF.iloc[1:]
-                else:
-                    # Unique exception in data file when there is data in the last row is nAN
-                    # Ex) Sub10/Freeform_Sub10_Sess1/session_F_PanUp_subjID_10_05-10-23_02-37-19.csv
-                    if (math.isnan(testDF.iloc[0]["gesture_counter_UI"])):
-                        testDF = testDF.iloc[1:].dropna(how='all')
-                    break
-        else:                                                           
-            # A strike has occured
-            # Removes the most recent trial from newDF, which is the rows at the tail with the same gesture_counter_UI number
-            if (newDF.empty == True):
-                continue
-            ui_counter -= 3
-            tail_group_num = (newDF.iloc[-1]["gesture_counter_UI"])
-            newDF.drop(newDF[newDF["gesture_counter_UI"] == tail_group_num].index, inplace = True)
-            newDF.reset_index(drop=True, inplace=True)
-            
-    return newDF
+    new_df = pd.DataFrame(columns = og_df.columns)
+
+    total_gestures = int(og_df['gesture_counter'].max())
+    strike_count = 0
+
+    # Iterate through EVERY trial including 0 where the first trial has not yet begun
+    for i in range(int(total_gestures)+1):
+        # Add corresponding trial to new df
+        new_df = pd.concat([new_df, og_df[og_df['gesture_counter'] == i]], ignore_index=True)
+        # Check if strike count has gone up
+        if strike_count < new_df['x_counter'].max():
+            # If it has, remove the previous x trials from new df
+            num_trials_to_remove = int(new_df['x_counter'].max() - strike_count)
+            # Update strike count
+            strike_count = new_df['x_counter'].max()
+            for j in range(num_trials_to_remove):
+                # Get the gesture counter of the last row and remove all rows with that value
+                last_gesture_counter = new_df['gesture_counter'].iloc[-1]
+                new_df = new_df[new_df['gesture_counter'] != last_gesture_counter]
+    return new_df
     
 
 def get_num_strikes(file):
