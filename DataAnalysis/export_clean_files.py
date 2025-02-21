@@ -25,7 +25,7 @@ clean_data_folder_path = os.path.join('..', 'CleanedData')
 # List of paths to all of the subjectNumber folders - Sub01/Sub02/Sub03/etc
 sub_folders_in_data = [f.path for f in os.scandir(data_folder_path) if f.is_dir()] 
 
-for sub_folder in sub_folders_in_data:
+for sub_folder in sorted(sub_folders_in_data):
     
     # Checks for an existing subNum folder for each subject in the CleanData directory and creates one if there isn't one
     sub_num_in_clean_data_path = os.path.join(clean_data_folder_path, os.path.basename(sub_folder))
