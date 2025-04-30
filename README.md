@@ -3,15 +3,23 @@
 
 ## Table of Contents
 1) Project Overview
-2) Getting Started
+2) Libraries
 3) File Descriptions & Dependencies
 
+## Libraries to install
+- matplotlib
+- numpy
+- os
+- pandas
+- plotly
+- scipy
+- sklearn
 
 ## File Descriptions & Dependencies
 
 ### `clean_file.py`
 
-**Purpose**: Contains functions to help clean data files more efficiently and organized. Overall, it takes in a data file and removes trials that have been striked (when the x button is pressed and the x_counter increases).
+**Purpose**: Contains functions to help clean data files more efficiently and organized. It takes in a data file and removes trials that have been striked (when the x button is pressed and the x_counter increases).
 
 - **Dependencies**: N/A
 
@@ -120,3 +128,34 @@
 
 - **Connections**: 
     - N/A
+
+### `avg_gesture_similarity_comp.ipynb`
+
+**Purpose**: Generates average stroke template for each hand controller per gesture.
+
+- **Dependencies**:
+    - Uses output files from the "CleanedData" directory
+    - Requires stroke removal csv file, which contains a list of strokes that were created on accident for each participant session.
+
+- **Connections**: 
+    - "CleanedData" directory comes from export_clean_files.py
+
+### `ml_preprocessing.ipynb`
+
+**Purpose**: Takes raw data directly from the Unity VR project and preprocesses for the ml model predictions. Preprocessing includes removing hooks, egocentralizing, extracting features/summary statistics, and finally prediction.
+
+- **Dependencies**:
+    - N/A
+
+- **Connections**: 
+    - Used by Unity VR project
+
+### `vr_data_processing.ipynb`
+
+**Purpose**: Takes raw data directly from the Unity VR project and preprocesses for the ml model predictions. Preprocessing includes removing hooks, egocentralizing, extracting features/summary statistics, and finally prediction.
+
+- **Dependencies**:
+    - N/A
+
+- **Connections**: 
+    - Used by Unity VR project
