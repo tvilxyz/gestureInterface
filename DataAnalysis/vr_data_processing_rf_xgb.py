@@ -678,6 +678,15 @@ def get_summary_statistics(input_df):
 
     return statistics_df
 
+def output_accuracy_file(df, rf_prediction, xgb_prediction):
+    file_path = os.path.join("..", "test_accuracy.csv")
+    df['RF Prediction'] = rf_prediction
+    df['XGB Prediction'] = xgb_prediction
+    df['Actual'] = ''
+    if not os.path.exists(file_path):
+        df.to_csv(file_path, index=False)
+    else:
+        df.to_csv(file_path, mode='a', index=False, header=False)
 
 
 

@@ -14,6 +14,7 @@
 - plotly
 - scipy
 - sklearn
+- tensorflow
 
 ## File Descriptions & Dependencies
 
@@ -140,9 +141,47 @@
 - **Connections**: 
     - "CleanedData" directory comes from export_clean_files.py
 
-### `ml_preprocessing.ipynb`
+### `ml_data_preprocessing.ipynb`
+**Purpose**: Preprocesses the participants' data to be used as training/testing data in various ml models. Different models will have various preprocessing steps, though they do share a few common ones.
 
-**Purpose**: Takes raw data directly from the Unity VR project and preprocesses for the ml model predictions. Preprocessing includes removing hooks, egocentralizing, extracting features/summary statistics, and finally prediction.
+- **Dependencies**:
+    - Uses output files from the "CleanedData" directory
+    - Requires stroke removal csv file, which contains a list of strokes that were created on accident for each participant session.
+    - For the label count file, labels will need to be manually inputted prior to calling the codeblocks for it.
+
+- **Connections**: 
+    - "CleanedData" directory comes from export_clean_files.py
+
+### `ml_model_rf.ipynb`
+**Purpose**: Builds an random forest model
+
+- **Dependencies**:
+    - Uses preprocessed data files from ml_data_preprocessing.ipynb. There should be 7 statistics files outputted to a SummaryStatistics folder. This includes AccelerationStats.csv, AngleStats.csv, CurvatureStats.csv, DurationStats.csv, LengthStats.csv, SpeedStats.csv, and VelocityStats.csv.
+
+- **Connections**: 
+    - "CleanedData" directory comes from export_clean_files.py
+
+### `ml_model_xgb.ipynb`
+**Purpose**: Builds an xg boost model
+
+- **Dependencies**:
+    - Uses preprocessed data files from ml_data_preprocessing.ipynb. There should be 7 statistics files outputted to a SummaryStatistics folder. This includes AccelerationStats.csv, AngleStats.csv, CurvatureStats.csv, DurationStats.csv, LengthStats.csv, SpeedStats.csv, and VelocityStats.csv.
+
+- **Connections**: 
+    - "CleanedData" directory comes from export_clean_files.py
+
+### `ml_model_tcn.ipynb`
+**Purpose**: Builds an temporal convolutional neural network model
+
+- **Dependencies**:
+    - Uses preprocessed data file from ml_data_preprocessing.ipynb. It should be outputted to a NormalizedEgocentricData folder and called normalized_resampled_entire_data.csv or normalized_resampled_sw_data.csv based on which method the model should be trained on.
+
+- **Connections**: 
+    - "CleanedData" directory comes from export_clean_files.py
+
+### `vr_data_processing_rf_xgb.ipynb`
+
+**Purpose**: Real time model prediction in VR. Takes raw data directly from the Unity VR project and preprocesses for the rf or xgb model predictions. Preprocessing includes removing hooks, egocentralizing, extracting features/summary statistics, and finally prediction.
 
 - **Dependencies**:
     - N/A
@@ -150,9 +189,9 @@
 - **Connections**: 
     - Used by Unity VR project
 
-### `vr_data_processing.ipynb`
+### `vr_data_processing_tcn.ipynb`
 
-**Purpose**: Takes raw data directly from the Unity VR project and preprocesses for the ml model predictions. Preprocessing includes removing hooks, egocentralizing, extracting features/summary statistics, and finally prediction.
+**Purpose**: UNFINISHED. Real time model prediction in VR. Takes raw data directly from the Unity VR project and preprocesses for the tcn model predictions. Preprocessing includes removing hooks, egocentralizing, resampling 128 points, normalization, and finally prediction.
 
 - **Dependencies**:
     - N/A
