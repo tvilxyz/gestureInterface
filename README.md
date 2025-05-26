@@ -5,6 +5,7 @@
 1) Project Overview
 2) Libraries
 3) File Descriptions & Dependencies
+4) Directory Structure
 
 ## Libraries to install
 - matplotlib
@@ -17,6 +18,8 @@
 - tensorflow
 
 ## File Descriptions & Dependencies
+
+![Alt text](Images/File_Dependencies.png)
 
 ### `clean_file.py`
 
@@ -198,3 +201,99 @@
 
 - **Connections**: 
     - Used by Unity VR project
+
+
+## Directory Structure
+
+**AvgStrokeTemplates**
+
+**CleanedData**
+- Sub01
+    - Freeform_Sub01_Sess1
+        - cleaned_session_F_BoxSelect...
+- Sub02
+
+**Codebook**
+- Codebook_Pan_Down.csv
+- Codebook...
+
+**Data**
+
+- Sub01
+    - Freeform_Sub01_Sess1
+        - session_F_BoxSelect...
+    - Freeform_Sub01_Sess2
+    - Instructional_Sub01_Sess1
+    - Instructional_Sub01_Sess2
+
+**DataAnalysis**
+- all_graph_vis.ipynb
+- avg_gesture_similarity_comp.ipynb
+- box_select_all_participants.ipynb
+- cb_info_extract.ipynb
+- clean_file.py
+- color_vis.ipynb
+- data_summary.py
+- egocentric_coord.ipynb
+- export_clean_files.py
+- metric_box_plots.py
+- metric_calculations.ipynb
+- min_max_test.ipynb
+- ml_data_preprocessing.ipynb
+- ml_model_tempcnn.ipynb
+- ml_model_rf.ipynb
+- ml_models_xgboost.ipynb
+- plot_preprocessed_data.ipynb
+- vr_data_processing_rf_xgb.py
+- vr_data_processing_tcn.py
+
+**Figures**
+- BoxSelect
+    - Freeform
+        - Box_Select_Freeform_Sub1_Sess1.html
+    - Instructional
+- PanDown
+- ...
+
+**MachineLearning**
+- HookRemovedData
+    - PanDown.csv
+    - PanLeft.csv
+- HookRemovedEgocentralizedData
+    - PanDown.csv
+    - PanLeft.csv
+- NormalizedEgocentricData
+    - normalized_resampled_entire_data.csv
+    - normalized_resampled_sw_data.csv
+- RawData
+    - PanDown.csv
+    - PanLeft.csv
+- SummaryStatistics
+    - AccelerationStats.csv
+    - AngleStats.csv
+    - CurvatureStats.csv
+    - DurationStats.csv
+    - LengthStats.csv
+    - SpeedStats.csv
+    - VelocityStats.csv
+- Models
+    - rf_model_entire_data.pkl
+    - rf_model_sw_data.pkl
+    - xgb_model_entire_data.pkl
+- label_count.csv
+- stroke_shapes_to_remove.csv
+    - GestureAcceleration
+        - acceleration_for_pan_down_freeform.csv
+        - acceleration_for_pan_down_instructional.csv
+    - GestureAngle
+    - ...
+    - MetricSummary
+        - acceleration_freeform_summary.csv
+        - acceleration_instructional_summary.csv
+
+**MetricCalculations**
+- GestureAcceleration
+    - acceleration_for_pan_down_freeform.csv
+    - acceleration_for_pan_down_instructional.csv
+- GestureAngle
+- Gesture...
