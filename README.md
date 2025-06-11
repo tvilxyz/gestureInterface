@@ -9,7 +9,7 @@
 ## Getting Started
 To install required packages to run this project:
 - Open your terminal (for MacOs or Linux) or Anaconda prompt (for Windows)
-- Navigate to the directory containing the file 'environment.yml'
+- Navigate to the directory containing the file `environment.yml`
 - Run the following command to create the environment:
     `conda env create -f environment.yml`
 - Activate the environment with:
@@ -52,7 +52,7 @@ To install required packages to run this project:
     - Uses output files generated from export_clean_files.py as input.
 
 
-### `metric_calculations.ipynb
+### `metric_calculations.ipynb`
 
 **Purpose**: Performs metric calculations for specified features of the participants' gesture data. It then outputs the measurement value calculated for each of the first five trials per hand and exports it as csv file. For each gesture, there will be two files for freeform and instructional. 
 
