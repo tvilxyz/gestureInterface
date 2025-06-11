@@ -14,6 +14,9 @@ To install required packages to run this project:
     `conda env create -f environment.yml`
 - Activate the environment with:
     `conda activate gestureInterface_Py3.9`
+- Install and enable `nbstripout`
+    `pip install nbstripout`
+    `nbstripout --install`
 
 ## File Descriptions & Dependencies
 
